@@ -25,6 +25,7 @@ class LoginController extends Controller
         try {
             if (auth()->attempt($credentials)) {
                 $user = auth()->user();
+                $user->tokens()->delete();
 //
                 return ResponseFormater::responseData(
                     new LoginResource($user),
@@ -42,6 +43,5 @@ class LoginController extends Controller
                 Response::HTTP_UNAUTHORIZED
             );
         }
-
     }
 }
